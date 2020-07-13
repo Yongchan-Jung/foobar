@@ -1,7 +1,23 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+    -   id: trailing-whitespace
+        files: '^foo'
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
 - repo: local
   hooks:
-    - id: pre-commit-hooks
-      name: pre-commit-hooks
-      language: script
-      entry: ./pre-commit-hooks.py
-      verbose: true
+    - id: run-rubocop
+      name: run-rubocop ( for src/foo )
+      entry: config/pre_commit_hooks/run_rubocop.py
+      files: '^src/foo'
+      language: ruby
+    - id: run-rubocop
+      name: run-rubocop ( for src/bar )
+      entry: config/pre_commit_hooks/run_rubocop.py
+      files: '^src/bar'
+      language: ruby

@@ -11,7 +11,7 @@ cwd = os.getcwd()
 def main(argv: Optional[Sequence[str]] = None) -> int:
     argv = argv[1:]
     print("argv {}".format(argv))
-    project_dir = argv[-1].split('/')[0]
+    project_dir = '/'.join(argv[-1].split('/')[0:2])
     os.chdir(project_dir)
 
     print("cwd {}".format(os.getcwd()))
@@ -20,7 +20,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     for f in argv:
         if '.pre-commit-config.yaml' in f:
             continue
-        target_files.append('/'.join(f.split('/')[1:]))
+        target_files.append('/'.join(f.split('/')[2:]))
 
     cmd = "rubocop {}".format(' '.join(target_files))
 
@@ -36,4 +36,8 @@ if __name__ == '__main__':
     finally:
         os.chdir(cwd)
         print("cwd {} - {}".format(os.getcwd(), ret))
-    exit(ret)
+
+    if ret != 0:
+        exit(-1)
+    else:
+        exit(0)
