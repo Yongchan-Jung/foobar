@@ -1,0 +1,7 @@
+- repo: local
+  hooks:
+    - id: pre-commit-hooks
+      name: pre-commit-hooks
+      language: script
+      entry: ./pre-commit-hooks.py
+      verbose: true
