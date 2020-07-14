@@ -14,8 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
-    - uses: pre-commit/action@v2.0.0
       
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
@@ -29,4 +27,8 @@ jobs:
     
     - name: Test
       run: |
-        ls -lh
+        cd src/foo && bundle insall && yarn install
+        cd src/bar && bundle insall && yarn install
+
+    - uses: actions/setup-python@v1
+    - uses: pre-commit/action@v2.0.0
