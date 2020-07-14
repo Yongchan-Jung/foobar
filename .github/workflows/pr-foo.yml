@@ -1,0 +1,30 @@
+name: PR for foo
+
+on:
+  pull_request:
+    branches: 
+      - master
+    paths:
+      - 'src/foo/**/*'
+
+jobs:
+  build:
+    name: Build + Publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+    
+    - name: Set up Node 12
+      uses: actions/setup-node@v1
+      with:
+        nodev-version: '12'
+    
+    - name: Test
+      run: |
+        ls -lh
