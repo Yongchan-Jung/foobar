@@ -14,6 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+    - uses: pre-commit/action@v2.0.0
       
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
@@ -23,7 +25,7 @@ jobs:
     - name: Set up Node 12
       uses: actions/setup-node@v1
       with:
-        nodev-version: '12'
+        node-version: '12'
     
     - name: Test
       run: |
