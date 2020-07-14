@@ -1,7 +1,51 @@
-- repo: local
-  hooks:
-    - id: pre-commit-hooks
-      name: pre-commit-hooks
-      language: script
-      entry: ./pre-commit-hooks.py
-      verbose: true
+# default_language_version:
+#  ruby: ruby2.5
+#  python: python3.7
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.5.3
+    hooks:
+      - id: autopep8
+  - repo: local # src/foo
+    hooks:
+      - id: run-rubocop
+        name: Run Rubocop ( for src/foo )
+        entry: scripts/pre_commit_hooks/run_rubocop.py
+        files: ^src/foo
+        language: ruby
+      - id: run-rails
+        name: Run rails test ( for src/foo )
+        entry: scripts/pre_commit_hooks/run_rails.py
+        files: ^src/foo
+        language: ruby
+        args:
+          - src/foo
+          - db:create
+          - db:migrate
+          - test
+        pass_filenames: false
+  - repo: local # src/bar
+    hooks:
+      - id: run-rubocop
+        name: run-rubocop ( for src/bar )
+        entry: scripts/pre_commit_hooks/run_rubocop.py
+        files: ^src/bar
+        language: ruby
+      - id: run-rails
+        name: Run rails test ( for src/foo )
+        entry: scripts/pre_commit_hooks/run_rails.py
+        files: ^src/bar
+        language: ruby
+        args:
+          - src/bar
+          - db:create
+          - db:migrate
+          - test
+        pass_filenames: false
