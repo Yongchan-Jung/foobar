@@ -10,7 +10,7 @@ from typing import Sequence
 
 log_format = "%(asctime)s %(levelname)s %(processName)s %(threadName)s %(message)s"
 
-logging.basicConfig(level=logging.INFO,
+logging.basicConfig(level=logging.DEBUG,
                     format=log_format,
                     datefmt="%Y%m%d %H:%M:%S")
 logger = logging.getLogger(__name__)
@@ -29,6 +29,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     logger.debug("project_path {}".format(project_path))
 
     os.chdir(project_path)
+    logger.debug("cwd {}".format(os.getcwd()))
 
     target_files = []
     for file_path in argv[1:]:
@@ -40,7 +41,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if len(target_files) == 0:
         return 0
 
-    cmd = "rubocop {} {}".format(
+    os.system("bundle install")
+
+    cmd = "bundle exec rubocop {} {}".format(
         RUBOCOP_DEFAULT_COMMAND, ' '.join(target_files))
     logger.debug("cmd {}".format(cmd))
 
