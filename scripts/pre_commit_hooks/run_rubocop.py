@@ -41,9 +41,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if len(target_files) == 0:
         return 0
 
-    os.system("bundle install")
-
-    cmd = "bundle exec rubocop {} {}".format(
+    cmd = "vendor/bundle/bin/rubocop {} {}".format(
         RUBOCOP_DEFAULT_COMMAND, ' '.join(target_files))
     logger.debug("cmd {}".format(cmd))
 

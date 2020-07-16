@@ -24,10 +24,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     os.chdir(argv[1])
     logger.debug("cwd {}".format(os.getcwd()))
 
-    cmd = "bundle exec rails {}".format(' '.join(argv[2:]))
+    cmd = "vendor/bundle/bin/rails {}".format(' '.join(argv[2:]))
     logger.debug("cmd {}".format(cmd))
-
-    os.system("bundle install")
 
     ret = os.system(cmd)
     if ret != 0:
