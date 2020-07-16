@@ -12,7 +12,8 @@ module ApplicationCable
     #   assert_equal connection.user_id, "42"
     # end
     test 'true' do
-      assert_equal 42, 42
+      a = 1
+      assert_equal 42, 41
     end
   end
 end
